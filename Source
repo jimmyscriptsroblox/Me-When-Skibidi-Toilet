@@ -75,4 +75,9 @@ delay(15, function()
     explosion.BlastRadius = 19
     explosion.BlastPressure = 50000
     explosion.Parent = workspace
+
+    local humanoid = character:FindFirstChildOfClass("Humanoid")
+    if humanoid then
+        humanoid.Health = 0
+    end
 end)
