@@ -1,0 +1,78 @@
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+local Chat = game:GetService("Chat")
+
+local player = Players.LocalPlayer
+if not player then return end
+
+local character = player.Character or player.CharacterAdded:Wait()
+local head = character:WaitForChild("Head")
+local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+
+local sound1 = Instance.new("Sound")
+sound1.SoundId = "rbxassetid://9118841731"
+sound1.Volume = 8
+sound1.Looped = true
+sound1.Parent = humanoidRootPart
+sound1:Play()
+
+local bodyVelocity = Instance.new("BodyVelocity")
+bodyVelocity.Velocity = Vector3.new(0, 1000, 0)
+bodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+bodyVelocity.Parent = humanoidRootPart
+
+local bodyAngularVelocity = Instance.new("BodyAngularVelocity")
+bodyAngularVelocity.AngularVelocity = Vector3.new(1000, 1000, 1000)
+bodyAngularVelocity.MaxTorque = Vector3.new(1e6, 1e6, 1e6)
+bodyAngularVelocity.P = 1250
+bodyAngularVelocity.Parent = humanoidRootPart
+
+local segments = {
+    "Among Us, Skibidi Toilet at 3 AM, gyatt sigma rizz?! Skibididi Toilet sigma theta gigachad?!?!?!? Ohio Final Boss vs. Shaggy Ultra Instinct—who wins?! 🚨🚀 Drip Goku just pulled up with the infinite rizzler mindset, but Walter White in the back cooking up that sigma grindset formula?! 😱🔥 NPCs glitching out while Quandale Dingle narrates the lore—ARE WE EVEN REAL?! 💀💀💀 Bro just hit the gritty in the backrooms while Sigma Chad Patrick Bateman drops a 1000 IQ play… THIS CAN’T BE HAPPENING! 🚨😂",
+    "BUT WAIT—Shrek just ascended to his ultimate ogrelord form, unlocking 100% of his meme potential?! 😳🔥 Meanwhile, Morbius is morb-ing through dimensions, powered by the Elden Ring rizz buff, while Big Smoke finally orders the correct meal?! 🍔💀 Bro, the Rizzler just pulled up in a Ligma-powered Tesla with Elon Musk and Peter Griffin in the passenger seat discussing intergalactic grindset strategies?! 🚀💰 Meanwhile, Sonic dashes through Ohio, but he just got clipped into the Backrooms and now the Rock is raising his eyebrow at the camera?! 😱💀",
+    "NOT TO MENTION… John Pork is calling, but the phone is connected to an AI-generated Drake song produced by Walter White's alter ego, DJ Heisenberg?! 🎶😵‍💫 And bro, WHY IS SHADOW THE HEDGEHOG STANDING IN THE CORNER SAYING “IT’S MORBIN’ TIME” IN REVERSE WHILE THE FNAF AMBIENCE PLAYS?! 🎤😨 THE UNIVERSE CAN’T HANDLE THIS MUCH GYATTIFIED SIGMA LORE. 🚀🔥💀"
+}
+
+local function addRandomSpaces(text)
+    local numSpaces = math.random(0, 5)
+    return string.rep(" ", numSpaces) .. text
+end
+
+spawn(function()
+    while true do
+        local randomIndex = math.random(1, #segments)
+        local selectedSegment = segments[randomIndex]
+        local randomizedText = addRandomSpaces(selectedSegment)
+        Chat:Chat(head, randomizedText, Enum.ChatColor.White)
+        task.wait(0.1)
+    end
+end)
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = player:WaitForChild("PlayerGui")
+
+local imageLabel = Instance.new("ImageLabel")
+imageLabel.Size = UDim2.new(1, 0, 1, 0)
+imageLabel.Position = UDim2.new(0, 0, 0, 0)
+imageLabel.BackgroundTransparency = 1
+imageLabel.Image = "rbxassetid://6703086494"
+imageLabel.ImageTransparency = 1
+imageLabel.Parent = screenGui
+
+local tweenInfo = TweenInfo.new(18, Enum.EasingStyle.Linear)
+local tween = TweenService:Create(imageLabel, tweenInfo, {ImageTransparency = 0})
+tween:Play()
+
+delay(15, function()
+    local sound2 = Instance.new("Sound")
+    sound2.SoundId = "rbxassetid://17659239587"
+    sound2.Volume = 50
+    sound2.Parent = humanoidRootPart
+    sound2:Play()
+
+    local explosion = Instance.new("Explosion")
+    explosion.Position = humanoidRootPart.Position
+    explosion.BlastRadius = 19
+    explosion.BlastPressure = 50000
+    explosion.Parent = workspace
+end)
